@@ -7,7 +7,7 @@
  */
 
 angular.module('ng-currency', [])
-    .directive('ngCurrency', ['$filter', '$locale', function ($filter, $locale) {
+    .directive('ngCurrency', ['$filter', '$locale', '$timeout', function ($filter, $locale, $timeout) {
         return {
             require: 'ngModel',
             scope: {
@@ -60,6 +60,16 @@ angular.module('ng-currency', [])
                 ngModel.$parsers.push(function (viewValue) {
                     var cVal = clearValue(viewValue);
                     return parseFloat(cVal);
+                });
+
+                element.on("focus", function () {
+
+                    $timeout(function() {
+
+                        element.select();
+
+                    });
+
                 });
 
                 element.on("blur", function () {
